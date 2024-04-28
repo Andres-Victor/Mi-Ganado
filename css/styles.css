@@ -310,7 +310,8 @@ p
 .decoration.n1
 {
     height: 100%;
-    width: 100vh;
+    width: 120vw;
+    max-width: 100vh;
     z-index: -1;
     left: -30vh;
     transform: rotateZ(0deg);
@@ -328,10 +329,185 @@ p
 .decoration.n3
 {
     height: 100%;
-    width: 100vh;
+    width: 120vw;
+    max-width: 100vh;
     z-index: -1;
     left: -30vh;
     transform: rotateZ(0deg);
     background-color: #FEB954;
     border-radius: 10vh;
+}
+
+
+#limits
+{
+    padding-left: 20vh; padding-right: 20vh
+}
+
+#download_again
+{
+    padding-right: 10vh; padding-left: 10vh; height: 60vh;
+}
+
+
+#sync
+{
+    height: 60vh;
+}
+
+@media (max-width: 800px) 
+{
+    .top
+    {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .header
+    {
+        height: 85vh;
+        padding-top: 5vh;
+        flex-wrap: nowrap;
+        flex-direction: column-reverse;
+    }
+    h1
+    {
+        font-size: 3.5vh;
+    }
+
+    .text_right
+    {
+        text-align: center;
+    }
+
+    .block
+    {
+        width: 100%;
+        height: 50%;
+        flex: unset;
+    }
+    
+    .header-text
+    {
+        align-items: center;
+        padding: unset;
+        gap: 5vh;
+    }
+
+    .header-image
+    {
+        align-items: center;
+        justify-content: center;
+        padding: unset;
+    }
+
+    .body-title
+    {
+        margin-top: 3vh;
+        margin-bottom: unset;
+    }
+
+    .header-image__image
+    {
+        height: 40vh;
+    }
+
+    .body-section
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+    .body-section.inverted
+    {
+        flex-direction: column;
+    }
+    .body-section__ilus
+    {
+        width: 100%;
+        height: 50%;
+    }
+    .body-section__ilus img
+    {
+        height: unset;
+        max-height: 35vh;
+        max-width: 100%;
+    }
+    .body-section__text
+    {
+        height: 50%;
+        width: 90%;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .body-section__decoration
+    {
+        width: 100%;
+        height: 50%;
+    }
+    .body-title__content
+    {
+        width: 90%;
+    }
+
+    #limits
+    {
+        padding-left: unset; padding-right: unset;
+        height: 60vh;
+        margin-top: 15vh;
+        gap: unset;
+    }
+
+    #analisis
+    {
+        margin-top: 15vh;
+    }
+
+    #design
+    {
+        margin-top: 15vh;
+    }
+
+    #control
+    {
+        margin-top: 15vh;
+    }
+
+    #sync
+    {
+        height: unset;
+    }
+
+    #sync img
+    {
+        height: 20vh;
+    }
+
+    #sync .body-section__ilus
+    {
+        height: 30%;
+    }
+
+    #download_again
+    {
+        position: relative;
+        padding-right: unset; padding-left: unset; height: unset;
+        padding-bottom: 5vh;
+    }
+
+    #download_again .header-text
+    {
+        width: 100%;
+    }
+    .header-text__text
+    {
+        width: 100%;
+    }
+
+    .button
+    {
+        padding: 5vh;
+        padding-top: 3vh;
+        padding-bottom: 3vh;
+    }
 }
