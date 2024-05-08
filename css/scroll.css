@@ -1,0 +1,21 @@
+/* scroll Effect */
+.s_hidden
+{
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateX(-100%);
+    transition: all 1s;
+}
+.s_hidden_i
+{
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateX(-100%);
+    transition: opacity 1s;
+}
+.s_show
+{
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+}
