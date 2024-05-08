@@ -36,7 +36,7 @@ a
     text-decoration: none;
 }
 
-h1
+h1,h2
 {
     font-size: 4.5vh;
     font-family: varela;
@@ -221,22 +221,22 @@ strong
     padding-right: 10%;
 }
 
-#visual h1
+#visual h2
 {
     color: #acae6f;
 }
 
-#design h1
+#design h2
 {
     color: var(--main-color);
 }
 
-#control h1
+#control h2
 {
     color: #feb954;
 }
 
-#limits h1
+#limits h2
 {
     color: var(--main-color);
 }
@@ -335,7 +335,7 @@ strong
         flex-direction: column-reverse;
     }
 
-    h1
+    h1,h2
     {
         font-size: 3.25vh;
     }
