@@ -1,0 +1,270 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: garet;
+}
+
+
+:root 
+{
+    --main-color: #1F9CDE;
+    --sync-color: #00b694;
+    --main-text-color: #0E3151;
+}
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+@font-face 
+{
+    font-family: garet;
+    src: url(../res/fonts/Garet-Book.otf);
+}
+
+@font-face 
+{
+    font-family: varela;
+    src: url(../res/fonts/VarelaRound-Regular.ttf);
+}
+
+body
+{
+    background-color: #f2f4fa;
+    font-family: garet;
+    color: var(--main-text-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+
+a
+{
+    text-decoration: none;
+    font-size: 1.95vh;
+}
+
+.button
+{
+    background-color: #1F9CDE;
+    padding: 2vh;
+    border-radius: 20vh;
+    color: white;
+    font-weight: bold;
+    outline: 0.3vh solid rgba(255, 255, 255, 0);
+    transition: all 500ms;
+}
+.button:hover
+{
+    background-color: white;
+    outline: 0.3vh solid #1F9CDE;;
+    color: #1F9CDE;
+
+}
+
+h1
+{
+    font-size: 4.5vh;
+    font-family: varela;
+}
+
+h2
+{
+    font-size: 2.8vh;
+    font-family: varela;
+}
+
+p
+{
+    z-index: 1;
+    font-size: 1.9vh;
+}
+
+strong
+{
+    color: var(--main-color);
+}
+
+.divider
+{
+    width: 100%;
+    top: -10px;
+    transform: rotate(0deg);
+    position: fixed;
+    z-index: 2;
+}
+.divider.inverted
+{
+    width: 100%;
+    transform: rotate(180deg);
+    position: fixed;
+    top: unset;
+    bottom: -10px;
+}
+
+.top
+{
+    display: flex;
+    position: fixed;
+    top: 0;
+    height: 7vh;
+    padding: 1vh;
+    z-index: 4;
+    color: white;
+    align-items: center;
+}
+.top img
+{
+    height: 100%;
+    border-radius: 5vh;
+    margin-right: 1vh;
+}
+.bot
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5vh;
+}
+.option
+{
+    width: 40vh;
+    height: 55vh;
+    border-radius: 3vh;
+    background-color: white;
+    box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.164);
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.option .icon
+{
+    height: 50%;
+    width: 100%;
+    background-color: #00b694;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.option .icon img
+{
+    /* width: 50%; */
+    height: 50%;
+}
+
+.option .data
+{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2.5vh;
+}
+
+
+
+
+
+.option.w .icon
+{
+    background-color: #128c7e;
+}
+.option.w h2
+{
+    color: #128c7e;
+}
+.option.w .button
+{
+    background-color: #128c7e;
+}
+.option.w .button:hover
+{
+    background-color: #128c7e00;
+    outline-color: #128c7e;
+    color: #128c7e;
+}
+
+.option.t .icon
+{
+    background-color: #2481cc;
+}
+.option.t h2
+{
+    color: #2481cc;
+}
+.option.t .button
+{
+    background-color: #2481cc;
+}
+.option.t .button:hover
+{
+    background-color: #2481cc00;
+    outline-color: #2481cc;
+    color: #2481cc;
+}
+
+.min_option
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5vh;
+    gap: 1vh;
+}
+.min_option img
+{
+    width: 4.5vh;
+    border-radius: 10vh;
+    background-color: #00b694;
+    padding: 1vh;
+}
+
+
+@media (max-width: 800px) 
+{
+    body
+    {
+        height: unset;
+    }
+    .divider
+    {
+        top: 5vh;
+    }
+    .top
+    {
+        background-color: #00b694;
+        width: 100%;
+    }
+    .bot
+    {    
+        flex-direction: column;
+        padding-top: 15vh;
+        padding-bottom: 5vh;
+    }
+    .option
+    {    
+        flex-direction: row;
+        width: 90%;
+        height: 40vh;
+    }
+    .option .icon
+    {
+        height: 100%;
+    }
+    .option.m .icon
+    {
+        height: 0px;
+        width: 0px;
+    }
+}
