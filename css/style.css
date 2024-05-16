@@ -34,6 +34,13 @@ body
 a
 {
     text-decoration: none;
+    font-size: 2.25vh;
+    color: white;
+    font-weight: bold;
+}
+a.simple:hover
+{
+    text-decoration: underline;
 }
 
 h1,h2
