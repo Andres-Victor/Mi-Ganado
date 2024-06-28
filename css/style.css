@@ -277,6 +277,14 @@ strong
     scroll-snap-align: end;
 }
 
+#legal
+{
+    height: 10vh;     
+    padding-top: 4vh;
+    padding-left: 8vh;
+    margin-top: 0;   
+}
+
 /* TOOLS */
 
 .align_end
@@ -425,4 +433,6 @@ strong
     {
         justify-content: start;
     }
+
+    
 }
