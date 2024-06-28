@@ -194,6 +194,26 @@ strong
     color: #128c7e;
 }
 
+.option.ig .icon
+{
+    background-color: #fd025f;
+}
+.option.ig h2
+{
+    color: #fd025f;
+}
+.option.ig .button
+{
+    background-color: #fd025f;
+}
+.option.ig .button:hover
+{
+    background-color: #128c7e00;
+    outline-color: #fd025f;
+    color: #fd025f;
+}
+
+
 .option.t .icon
 {
     background-color: #2481cc;
