@@ -562,6 +562,7 @@ strong
     justify-content: space-between;
     padding: 0.8vh 10%;
     z-index: 9999;
+    font-size: 1.8;
 }
 
 .sticky-header nav ul {
