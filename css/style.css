@@ -152,6 +152,8 @@ strong
     scroll-snap-align: center;
     padding-left: 5%;
     padding-right: 5%;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
     gap: 5vh;
     
 }
@@ -160,9 +162,8 @@ strong
 
 .container section .ilus
 {
-    height: 100%;
-    width: 100%;
-    /* max-width: 40vh; */
+    max-width: 100%;
+    max-height: 60vh;
     object-fit: contain;
     border-radius: 2.5vh;
 }
@@ -171,7 +172,6 @@ strong
 {
     /* width: 100%; */
     /* height: 100%; */
-    padding: 5vh;
     display: flex;
     position: relative;
     justify-content: center;
@@ -266,10 +266,9 @@ strong
     color: #b8bb57;
 }
 
-#design
+.info_alt_background
 {
     background-color: #e6ecf0;
-
 }
 
 #design h2
@@ -277,15 +276,6 @@ strong
     color: var(--main-color);
 }
 
-
-#control
-{
-    border-radius: 2vh;
-    margin-left: 2vh;
-    margin-right: 2vh;
-
-
-}
 
 #control h2
 {
@@ -381,7 +371,22 @@ strong
     margin-bottom: 0.5vh;
 }
 
-.download-box .button {
+.button_alt
+{
+    display: inline-block;
+    background-color: var(--main-color);
+    color: white;
+    padding: 1vh 2vh;
+    border-radius: 1vh;
+    font-size: 2vh;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s;
+    align-self: flex-start;
+}
+
+.download-box .button 
+{
     display: inline-block;
     background-color: var(--main-color);
     color: white;
