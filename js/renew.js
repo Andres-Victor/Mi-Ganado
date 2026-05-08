@@ -102,6 +102,10 @@
                 {
                     state.currency = countryCode;
                     var value = await getBinanceUSDTFor(currencyRates[countryCode].label);
+                    if(value)
+                    {
+                        currencyRates[countryCode].rate = value;
+                    }
                     console.log('Valor de USDT en moneda local:', value);
                 } 
                 else 
@@ -130,52 +134,31 @@
             }
         }
 
-        async function getBinanceUSDTFor(fiatCurrency) 
-        {
-          const url = "https://p2p.binance.com/bapi/c2c/v2/friendly/c2c/adv/search";
+       async function getBinanceUSDTFor(fiatCurrency) 
+       {
+          // Use la nueva URL que le dé Google al publicar
+                    const baseUrl = "https://script.google.com/macros/s/AKfycbyWbKTJmxSo1U2BfBN6GxxYUXoQvIHybMPblt0pLFwyWGjMJ18Q5jbvj59dwkSuBhDc9A/exec";
 
-          const payload = 
-          {
-            asset: "USDT",
-            fiat: fiatCurrency,
-            tradeType: "BUY", // "BUY" para ver a cuánto venden los comerciantes
-            bank: [],
-            page: 1,
-            rows: 1, // Solo necesitamos el primer resultado para el precio más bajo
-            payTypes: [],
-            publisherType: null,
-            tradeType: "BUY"
-          };
-      
-          try 
-          {
-            const response = await fetch(url, 
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-              },
-              body: JSON.stringify(payload)
-            });
+          const url = `${baseUrl}?fiat=${fiatCurrency}&asset=USDT&tradeType=BUY`;
+
+          try {
+            const response = await fetch(url); // Por defecto es GET
+
+            if (!response.ok) throw new Error("Error en red");
         
             const data = await response.json();
         
-            if (data.success) 
-            {
+            if (data.success && data.data && data.data.length > 0) {
               const precio = data.data[0].adv.price;
+              console.log(`Precio para ${fiatCurrency}: ${precio}`);
               return precio;
-            } 
-            else 
-            {
-              console.error("Error en la respuesta de Binance");
-              return null; // Retorna null si la respuesta no es exitosa
+            } else {
+              console.error("Binance no devolvió datos válidos");
+              return null;
             }
-          } 
-          catch (error) 
-          {
-            return null; // Retorna null si hay un error en la petición
+          } catch (error) {
             console.error("Error en la petición:", error);
+            return null;
           }
         }
 
