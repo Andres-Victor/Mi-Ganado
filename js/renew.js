@@ -91,11 +91,11 @@
         {
             try 
             {
-                const response = await fetch('https://ip-api.com/json/');
+                const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
-                const countryCode = data.countryCode;
+                const countryCode = data.country_code;
                 
-                console.log('[v0] Detected country:', countryCode);
+                console.log('[v0] Detected country:', country_code);
 
                 // Set currency based on country
                 if (currencyRates[countryCode]) 
