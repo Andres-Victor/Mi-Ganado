@@ -95,7 +95,7 @@
                 const data = await response.json();
                 const countryCode = data.country_code;
                 
-                console.log('[v0] Detected country:', country_code);
+                console.log('[v0] Detected country:', countryCode);
 
                 // Set currency based on country
                 if (currencyRates[countryCode]) 
