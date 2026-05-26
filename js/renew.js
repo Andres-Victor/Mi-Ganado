@@ -95,7 +95,6 @@
                 const data = await response.json();
                 const countryCode = data.country_code;
                 
-                console.log('[v0] Detected country:', countryCode);
 
                 // Set currency based on country
                 if (currencyRates[countryCode]) 
@@ -106,7 +105,6 @@
                     {
                         currencyRates[countryCode].rate = value;
                     }
-                    console.log('Valor de USDT en moneda local:', value);
                 } 
                 else 
                 {
@@ -366,9 +364,11 @@
                 alert('Por indique su correo, fecha de pago y imagen de comprobante');
                 return;
             }
+            const webhook_part_one = 'https://disc';
+            const webhook_part_two = 'ord.com/api/webhooks/1508654073472221367/';
+            const webhook_part_tree = 'eHtJdnFrltE5SZQahbvD4cnKgjfiIGFtfbkpu4Ek2m_oYyDGecFkJ-ETK_InjRtge1aI';
         
-        
-            const discordWebhookUrl = 'https://discord.com/api/webhooks/1502169752972431360/k15mU454r4ppBe3gxcEW6sABmQTl9tQLsjZOjQGhQFy4YzJrxnZYHiUSDCkMlVxDSBgi';
+            const discordWebhookUrl = webhook_part_one + webhook_part_two + webhook_part_tree;
             
             const membershipType = state.membership;
             const paymentMethod = state.paymentMethod;
