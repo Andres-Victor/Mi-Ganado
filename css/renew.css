@@ -6,6 +6,7 @@
 
         :root {
             --primary-blue: #1f9cde;
+            --transparent-blue: #1f9bde21;
             --light-blue: #e6f0ff;
             --dark-blue: #1579ae;
             --white: #ffffff;
@@ -21,7 +22,7 @@
             src: url(../res/fonts/Garet-Book.otf);
         }
         body {
-            font-family: garet;
+            font-family:  garet;
             background-image: url('../res/svg/layered-waves.svg');
             background-size: cover;
             min-height: 100vh;
@@ -159,7 +160,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
             transition: all 0.3s ease;
         }
 
@@ -217,22 +217,47 @@
             background: var(--white);
             border: 2px solid var(--medium-gray);
             border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
-            cursor: pointer;
+            padding: 60px 20px 20px 20px;
+            text-align: start;
             transition: all 0.3s ease;
             position: relative;
         }
-
-        .card:hover {
-            border-color: var(--primary-blue);
-            box-shadow: 0 8px 24px rgba(0, 102, 204, 0.15);
+        .card .btn
+        {
+            width: 100%;
+            border-radius: 20px;
+        }
+        .card .btn:not(.btn-primary)
+        {
+            background: var(--white);
+            border: 2px solid var(--primary-blue);
+            color : var(--primary-blue);
+            font-weight: 550;
         }
 
-        .card.selected {
+
+        .card.better {
+            padding: 60px 20px 20px 20px;
             border-color: var(--primary-blue);
-            background: var(--light-blue);
             box-shadow: 0 8px 24px rgba(0, 102, 204, 0.2);
+        }
+
+        .card .better-badge
+        {
+            position: absolute;
+            width: 100%;
+            background-color: var(--primary-blue);
+            left: 0;
+            top: 0;
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+            padding: 10px 20px 10px 20px;
+            text-align: center;
+            color: var(--white);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1.2px;
         }
 
         .card-icon {
@@ -248,15 +273,45 @@
 
         .card .price {
             color: var(--primary-blue);
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 2.25rem;
+            font-weight: 100 900;
+        }
+        .card .priceHolder
+        {
+            display: flex;
+            flex-direction: row;
+            align-items: end;
+            justify-content: start;
+        }
+        .card .divider 
+        {
+            color: var(--primary-blue);
+            font-size: 1rem;
+            margin-bottom: 8.5px;
+            font-weight: 500;
+            margin-left: 5px;
         }
 
-        .card .period {
+        .card .saved
+        {
+            color: rgb(21, 128, 61);
+            font-size: 0.9rem;
+        }
+        .card .price-and-stuff
+        {
+            margin-bottom: 15px;
+            min-height: 96px;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+        }
+
+        .card .priceBefore
+        {
             color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            text-decoration: line-through;
         }
 
         .card ul {
@@ -279,20 +334,30 @@
         .card li::before {
             content: "✓ ";
             color: var(--primary-blue);
-            font-weight: bold;
+            font-weight: 100 900;
             margin-right: 8px;
         }
+        .card-badge-container 
+        {
+            position: relative;
+            align-items: end;
+            display: flex;
+            justify-content: end;
+            width: 100%;
+            min-height: 35px;
+        }
 
-        .card-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-blue);
-            color: var(--white);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
+        .card-badge 
+        {
+            position: relative;
+            width: fit-content;
+            background: var(--transparent-blue);
+            align-self: end;
+            color: var(--dark-blue);
+            padding: 6px 16px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         /* ===== SCREEN 2: PAYMENT METHOD ===== */
@@ -493,10 +558,16 @@
             margin-bottom: 8px;
         }
 
+        h2
+        {
+            font-weight: 400;
+
+        }
+
         .price-amount {
             color: var(--primary-blue);
             font-size: 2.5rem;
-            font-weight: bold;
+            font-weight: 100 900;
         }
 
         .price-period {
@@ -592,11 +663,14 @@
         }
 
         /* ===== BUTTONS ===== */
-        .button-group {
+        .button-group 
+        {
             display: flex;
             gap: 15px;
             justify-content: space-between;
             margin-top: 40px;
+            margin-bottom: 40px;
+            padding: 0 10%;
             flex-wrap: wrap;
         }
 
@@ -703,7 +777,8 @@
             }
 
             .membership-cards {
-                grid-template-columns: 1fr;
+                display : flex;
+                flex-direction: column-reverse
             }
 
             .payment-methods {

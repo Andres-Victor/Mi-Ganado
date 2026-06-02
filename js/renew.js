@@ -17,25 +17,15 @@
         // ===== CURRENCY CONVERSION TABLE =====
         const currencyRates = 
         {
-            'CO': { symbol: '$', rate: 3800, label: 'COP', locale: 'es-CO'},
-            'MX': { symbol: '$', rate: 17, label: 'MXN', locale: 'es-MX'},
-            'VE': { symbol: 'Bs', rate: 638, label: 'VES', locale: 'es-VE'}
+            'US': { symbol: 'US$', rate: 1, label: 'USD', locale: 'en-US'},
+            'CO': { symbol: 'COP$', rate: 3800, label: 'COP', locale: 'es-CO', 'rounded': true},
+            'MX': { symbol: 'MXN$', rate: 17, label: 'MXN', locale: 'es-MX', 'rounded': true},
+            'VE': { symbol: 'VES$', rate: 638, label: 'VES', locale: 'es-VE', 'rounded': true}
         };
 
         // ===== PAYMENT DATA =====
         const paymentData = 
         {
-            binance: 
-            {
-                icon: '₿',
-                id: 'binance',
-                name: 'Binance',
-                data: [
-                    { label: 'UID', value: '804746784' },
-                    { label: 'Correo', value: 'vianvarela@gmail.com' },
-                    { label: 'Moneda', value: 'Tether USD (USDT)' }
-                ]
-            },
             paypal: 
             {
                 icon: '🅿️',
@@ -55,7 +45,18 @@
                     { label: 'Cédula', value: '31.754.601' },
                     { label: 'Teléfono', value: '04144746323' }
                 ]
-            }
+            },
+            binance: 
+            {
+                icon: '₿',
+                id: 'binance',
+                name: 'Binance',
+                data: [
+                    { label: 'UID', value: '804746784' },
+                    { label: 'Correo', value: 'vianvarela@gmail.com' },
+                    { label: 'Moneda', value: 'Tether USD (USDT)' }
+                ]
+            },
         };
 
         // ===== STATE MANAGEMENT =====
@@ -63,16 +64,21 @@
             membership: null,
             paymentMethod: null,
             currency: null,
-            prices: { monthly: 8, annual: 60 }
+            prices: { monthly: 7.99, annual: 59.99 }
         };
 
         // ===== INITIALIZATION =====
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => 
+        {
             detectUserCountry();
         });
 
         function convertNumberToCurrency(number)
         {
+            const rate = currencyRates[state.currency] ?? currencyRates['US'];
+
+            const alwaysShowDecimals = rate.rounded !== true;
+
             if (typeof number !== 'number' && typeof number !== 'string') 
             {
                 return number;
@@ -83,37 +89,67 @@
                 return number;
             }
 
-            return parsedNumber.toLocaleString('es-VE');
+            // Ensure two decimal places are always shown (e.g., 7 -> 7,00)
+            return parsedNumber.toLocaleString(rate.locale, { minimumFractionDigits: alwaysShowDecimals ? 2 : 0, maximumFractionDigits: 2 });
         }
 
         // ===== GEOLOCATION =====
         async function detectUserCountry() 
         {
-            try 
-            {
+            const cacheKey = 'user_location';
+            const TTL = 1000 * 60 * 60; // 1 hour
+
+            try {
+                // Check localStorage cache first
+                const raw = localStorage.getItem(cacheKey);
+                if (raw) {
+                    try {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && parsed.ts && (Date.now() - parsed.ts) < TTL && parsed.countryCode) {
+                            const countryCode = parsed.countryCode;
+                            // Use cached location
+                            if (currencyRates[countryCode]) {
+                                state.currency = countryCode;
+                                const value = await getBinanceUSDTFor(currencyRates[countryCode].label);
+                                if (value) currencyRates[countryCode].rate = value;
+                            } else {
+                                state.currency = 'US';
+                            }
+                            updateCurrency();
+                            if (countryCode === 'VE') document.getElementById('pagomovil-option').style.display = 'block';
+                            hideLoadingPopup();
+                            console.log('Usando ubicación cacheada:', countryCode);
+                            return;
+                        }
+                    } catch (e) {
+                        // ignore parse errors and continue to fetch
+                    }
+                }
+
+                // If no valid cache, fetch location
                 const response = await fetch('https://ipapi.co/json/');
                 const data = await response.json();
                 const countryCode = data.country_code;
-                
+
+                // Save to cache
+                try {
+                    localStorage.setItem(cacheKey, JSON.stringify({ countryCode, ts: Date.now() }));
+                } catch (e) {
+                    // ignore storage errors
+                }
 
                 // Set currency based on country
-                if (currencyRates[countryCode]) 
-                {
+                if (currencyRates[countryCode]) {
                     state.currency = countryCode;
-                    var value = await getBinanceUSDTFor(currencyRates[countryCode].label);
-                    if(value)
-                    {
-                        currencyRates[countryCode].rate = value;
-                    }
-                } 
-                else 
-                {
+                    const value = await getBinanceUSDTFor(currencyRates[countryCode].label);
+                    if (value) currencyRates[countryCode].rate = value;
+                } else {
                     state.currency = 'US'; // Default to USD
                 }
 
                 // Update UI with location and prices
                 updateCurrency();
-                
+
                 // Show PagoMovil only for Venezuela
                 if (countryCode === 'VE') {
                     document.getElementById('pagomovil-option').style.display = 'block';
@@ -121,68 +157,114 @@
 
                 // Hide loading popup
                 hideLoadingPopup();
-            } 
-            catch (error) 
-            {
-                console.log('[v0] Geolocation error:', error);
+            } catch (error) {
                 // Default to USD if geolocation fails
-                state.currency = 'US';
+                state.currency = 'VE';
                 updateCurrency();
                 hideLoadingPopup();
+            } finally {
+                console.log('Geolocalización finalizada. País detectado:', state.currency);
             }
         }
 
        async function getBinanceUSDTFor(fiatCurrency) 
        {
-          // Use la nueva URL que le dé Google al publicar
-                    const baseUrl = "https://script.google.com/macros/s/AKfycbyWbKTJmxSo1U2BfBN6GxxYUXoQvIHybMPblt0pLFwyWGjMJ18Q5jbvj59dwkSuBhDc9A/exec";
-
-          const url = `${baseUrl}?fiat=${fiatCurrency}&asset=USDT&tradeType=BUY`;
-
-          try {
-            const response = await fetch(url); // Por defecto es GET
-
-            if (!response.ok) throw new Error("Error en red");
-        
-            const data = await response.json();
-        
-            if (data.success && data.data && data.data.length > 0) {
-              const precio = data.data[0].adv.price;
-              console.log(`Precio para ${fiatCurrency}: ${precio}`);
-              return precio;
-            } else {
-              console.error("Binance no devolvió datos válidos");
-              return null;
+            if (fiatCurrency === 'USD') return 1;
+            // Cache key and TTL (1 hour)
+            const cacheKey = `budt_${fiatCurrency}`;
+            const TTL = 1000 * 60 * 60;
+            try 
+            {
+                // Check localStorage cache
+                const raw = localStorage.getItem(cacheKey);
+                if (raw) {
+                    try {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && parsed.ts && (Date.now() - parsed.ts) < TTL && parsed.precio != null) {
+                            // Use cached value
+                            console.log(`Usando cache para ${fiatCurrency}: ${parsed.precio}`);
+                            return parsed.precio;
+                        }
+                    } catch (e) {
+                        // ignore parse errors and refetch
+                    }
+                }
+                // Use la nueva URL que le dé Google al publicar
+                const baseUrl = "https://script.google.com/macros/s/AKfycbyWbKTJmxSo1U2BfBN6GxxYUXoQvIHybMPblt0pLFwyWGjMJ18Q5jbvj59dwkSuBhDc9A/exec";
+                const url = `${baseUrl}?fiat=${fiatCurrency}&asset=USDT&tradeType=BUY`;
+                const response = await fetch(url); // Por defecto es GET
+                if (!response.ok) throw new Error("Error en red");
+                const data = await response.json();
+                if (data.success && data.data && data.data.length > 0) {
+                    const precioRaw = data.data[0].adv.price;
+                    const precio = parseFloat(precioRaw);
+                    // Save to cache
+                    try {
+                        localStorage.setItem(cacheKey, JSON.stringify({ precio, ts: Date.now() }));
+                    } catch (e) {
+                        // ignore storage errors
+                    }
+                    console.log(`Precio para ${fiatCurrency}: ${precio}`);
+                    return precio;
+                } else {
+                    console.error("Binance no devolvió datos válidos");
+                    return null;
+                }
+            } catch (error) {
+                console.error("Error en la petición:", error);
+                return null;
             }
-          } catch (error) {
-            console.error("Error en la petición:", error);
-            return null;
-          }
         }
 
 
         function updateCurrency() 
         {
-            const rate = currencyRates[state.currency] ?? { symbol: '$', rate: 1 };
+            const rate = currencyRates[state.currency] ?? currencyRates['US'];
             
             // Update prices
-            const monthlyConverted = convertNumberToCurrency(Math.round(state.prices.monthly * rate.rate * 100) / 100);
-            const annualConverted = convertNumberToCurrency(Math.round(state.prices.annual * rate.rate * 100) / 100);
+            // Calculate numeric values first
+            var monthlyNum = Math.round(state.prices.monthly * rate.rate * 100) / 100;
+            var annualNum = Math.round(state.prices.annual * rate.rate * 100) / 100;
+            var saved = monthlyNum * 12 - annualNum;
+            var anualMonthlyEquivalent = annualNum / 12;
+
+            // If rounded flag, round to nearest 10 (e.g., 43852.69 -> 43850, 43856.69 -> 43860)
+            if (rate.rounded) 
+            {
+                monthlyNum = Math.round(monthlyNum / 10) * 10;
+                annualNum = Math.round(annualNum / 10) * 10;
+                anualMonthlyEquivalent = annualNum / 12;
+                anualMonthlyEquivalent = Math.round(anualMonthlyEquivalent / 10) * 10;
+                saved = monthlyNum * 12 - (anualMonthlyEquivalent * 12);
+            }
+
+
+
+
+            // Convert to currency strings
+            var monthlyConverted = convertNumberToCurrency(monthlyNum);
+            var annualConverted = convertNumberToCurrency(annualNum);
+            var anualMonthlyEquivalentConverted = convertNumberToCurrency(anualMonthlyEquivalent);
+
             
             document.getElementById('monthlyPrice').textContent = rate.symbol +' '+ monthlyConverted;
-            document.getElementById('annualPrice').textContent = rate.symbol +' '+ annualConverted;
-            document.getElementById('annualBadge').textContent = `¡Te ahorras ${rate.symbol}${convertNumberToCurrency(Math.round((state.prices.monthly * 12 - state.prices.annual) * rate.rate * 100) / 100)} al año!`;
+            document.getElementById('annualPrice').textContent = rate.symbol +' '+ anualMonthlyEquivalentConverted;
+            document.getElementById('annualBadge').textContent = `-${Math.round((1 - anualMonthlyEquivalent / monthlyNum) * 100)}%`;
+            document.getElementById('annualPriceBefore').textContent = `${rate.symbol} ${convertNumberToCurrency(monthlyNum)}`;
+            document.getElementById('annualSaved').textContent = `Ahorre ${rate.symbol} ${convertNumberToCurrency(saved)}`;
 
 
             
             if (state.membership === 'monthly') 
             {
                 document.getElementById('totalPrice').textContent = rate.symbol +' '+monthlyConverted;
-                document.getElementById('pricePeriod').textContent = 'por mes';
+                document.getElementById('pricePeriod').textContent = 'por este mes';
+                document.getElementById('planName').textContent = 'Mensual';
             } else if (state.membership === 'annual') 
             {
                 document.getElementById('totalPrice').textContent = rate.symbol +' '+annualConverted;
-                document.getElementById('pricePeriod').textContent = 'por año';
+                document.getElementById('pricePeriod').textContent = 'por este año';
+                document.getElementById('planName').textContent = 'Anual';
             }
         }
 
@@ -196,7 +278,7 @@
         }
 
         // ===== MEMBERSHIP SELECTION =====
-        function selectMembership(type, element) 
+        function selectMembership(type) 
         {
             // Remove selection from all cards
             document.querySelectorAll('.card').forEach(card => {
@@ -204,25 +286,14 @@
             });
 
             // Add selection to clicked card
-            element.classList.add('selected');
             state.membership = type;
 
             // Update price display
-            const rate = currencyRates[state.currency] ?? { symbol: '$', rate: 1 };
-            if (type === 'monthly') {
-                const monthlyConverted =  convertNumberToCurrency(Math.round(state.prices.monthly * rate.rate * 100) / 100);
-                document.getElementById('totalPrice').textContent = rate.symbol +' '+ monthlyConverted;
-                document.getElementById('pricePeriod').textContent = 'por mes';
-                document.getElementById('planName').textContent = 'Mensual';
-            } else {
-                const annualConverted = convertNumberToCurrency(Math.round(state.prices.annual * rate.rate * 100) / 100);
-                document.getElementById('totalPrice').textContent = rate.symbol +' '+ annualConverted;
-                document.getElementById('pricePeriod').textContent = 'por año';
-                document.getElementById('planName').textContent = 'Anual';
-            }
+            updateCurrency();
 
             // Enable next button
             document.getElementById('btn-next-1').disabled = false;
+            goToStep2();
         }
 
         // ===== PAYMENT METHOD SELECTION =====
@@ -246,10 +317,9 @@
 
             bankInfo.style.display = 'none';
 
-            displayPaymentInfo(bankInfo, method);            
-
-            // Enable next button
-            document.getElementById('btn-next-2').disabled = false;
+            displayPaymentInfo(bankInfo, method);   
+            
+            goToStep3();
         }
 
         function displayPaymentInfo(container, method) 
@@ -275,7 +345,7 @@
                     const rate = currencyRates[state.currency];
                     const amount = state.membership === 'monthly' ? state.prices.monthly : state.prices.annual;
                     const link = item.onTapLink(amount);
-                    const usdAmount = state.currency !== 'US' ? ` (${amount} USD)` : '';
+                    const usdAmount = state.currency !== 'US' ? ` (US$ ${amount})` : '';
                     
                     rowContent += `<a href="${link}" target="_blank" class="bank-info-value" style="color: var(--primary-blue); cursor: pointer; text-decoration: none;">
                         ${item.value}${usdAmount}<span style="color: var(--text-gray); margin-left: 5px;">↗</span>
@@ -376,7 +446,13 @@
             const amount = membershipType === 'monthly' ? state.prices.monthly : state.prices.annual;
             const rate = currencyRates[currency]?.rate || 1;
             const symbol = currencyRates[currency]?.symbol || '';
-            const convertedAmount = Math.round(amount * rate * 100) / 100;
+            var convertedAmount = Math.round(amount * rate * 100) / 100;
+
+            if(currencyRates[currency]?.rounded)
+            {
+                convertedAmount = Math.round(convertedAmount / 10) * 10;
+            }
+
             const amountLabel = `${symbol} ${convertedAmount} (USD ${amount})`;
             // Construimos el Embed con toda la información
             const embedPayload = {
@@ -437,11 +513,9 @@
             if (screenNumber === 1) {
                 document.getElementById('screen1').classList.add('active');
                 document.getElementById('step1-indicator').classList.add('active');
-                document.getElementById('btn-next-1').disabled = true;
             } else if (screenNumber === 2) {
                 document.getElementById('screen2').classList.add('active');
                 document.getElementById('step2-indicator').classList.add('active');
-                document.getElementById('btn-next-2').disabled = true;
             } else if (screenNumber === 3) {
                 document.getElementById('screen3').classList.add('active');
                 document.getElementById('step3-indicator').classList.add('active');

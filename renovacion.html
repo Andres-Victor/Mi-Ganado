@@ -20,7 +20,7 @@
         <!-- HEADER -->
         <div class="header">
             <h1>Activar Membresía</h1>
-            <p>Elige tu plan y completa el pago</p>
+            <p>Elige tu plan y activa tu membresía</p>
         </div>
 
         <!-- STEP INDICATOR -->
@@ -42,36 +42,53 @@
         <!-- SCREEN 1: MEMBERSHIP SELECTION -->
         <div class="screen active" id="screen1">
             <div class="membership-cards">
-                <div class="card" onclick="selectMembership('monthly', this)">
-                    <div class="card-icon">📅</div>
+                
+                <div class="card">
+                    <div class="card-badge-container">
+                    </div>
                     <h2>Membresía Mensual</h2>
-                    <div class="price" id="monthlyPrice">⌛</div>
-                    <div class="period">por mes</div>
-                    <!-- <ul>
-                        <li>Acceso completo</li>
-                        <li>Soporte 24/7</li>
-                        <li>Actualizaciones gratis</li>
-                        <li>Cancelar en cualquier momento</li>
-                    </ul> -->
+                    <div class="price-and-stuff">
+                        <div class="priceHolder">
+                            <div class="price" id="monthlyPrice">⌛</div>
+                            <div class="divider">/mes</div>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="selectMembership('monthly')" id="btn-next-1">Obtenga su Mensualidad</button>
+
+                    <ul>
+                        <li>Acceso a la versión de escritorio</li>
+                        <li>Reportes financieros avanzados</li>
+                        <li>Sincronización multiusuario</li>
+                        <li>Respaldo en la nube</li>
+                        <li>Soporte técnico</li>
+                    </ul>
                 </div>
 
-                <div class="card" onclick="selectMembership('annual', this)">
-                    <div class="card-badge" id="annualBadge"></div>
-                    <div class="card-icon">⭐</div>
+                
+                    <div class="card better">
+                    <div class="better-badge">Mejor Oferta</div>
+                    <div class="card-badge-container">
+                        <div class="card-badge" id="annualBadge"></div>
+                    </div>
                     <h2>Membresía Anual</h2>
-                    <div class="price" id="annualPrice">⌛</div>
-                    <div class="period">por año</div>
-                    <!-- <ul>
-                        <li>Acceso completo</li>
-                        <li>Soporte prioritario</li>
-                        <li>Actualizaciones gratis</li>
-                        <li>Descuentos exclusivos</li>
-                    </ul> -->
-                </div>
-            </div>
-
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="goToStep2()" id="btn-next-1">Continuar →</button>
+                    <div class="price-and-stuff">
+                        <div class="priceBefore" id="annualPriceBefore"></div>
+                        <div class="priceHolder">
+                            <div class="price" id="annualPrice">⌛</div>
+                            <div class="divider">/mes</div>
+                        </div>
+                        <div class="saved" id="annualSaved"></div>
+                    </div>
+                    <button class="btn btn-primary" onclick="selectMembership('annual')" id="btn-next-1">Obtenga su Anualidad</button>
+                        <ul>
+                            <li>Acceso a la versión de escritorio</li>
+                            <li>Reportes financieros avanzados</li>
+                            <li>Sincronización multiusuario</li>
+                            <li>Respaldo en la nube</li>
+                            <li>Soporte técnico</li>
+                            <li>Ahorro equivalente a 4 meses</li>
+                        </ul>
+                    </div>
             </div>
         </div>
 
@@ -104,15 +121,16 @@
                     <p style="color: var(--text-gray); font-size: 0.85rem; margin-top: 10px;">Sistema bancario móvil</p>
                 </div>
             </div>
-
             <div class="button-group">
                 <button class="btn btn-secondary" onclick="goToStep1()">← Atrás</button>
-                <button class="btn btn-primary" onclick="goToStep3()" id="btn-next-2">Continuar →</button>
             </div>
         </div>
 
         <!-- SCREEN 3: PAYMENT FORM -->
         <div class="screen" id="screen3">
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goToStep2()">← Atrás</button>
+            </div>
             <div class="payment-form-container">
                 <!-- LEFT SIDE: FORM -->
                 <div class="form-section">
@@ -172,9 +190,7 @@
                 </div>
             </div>
 
-            <div class="button-group">
-                <button class="btn btn-secondary" onclick="goToStep2()">← Atrás</button>
-            </div>
+            
         </div>
 
         
