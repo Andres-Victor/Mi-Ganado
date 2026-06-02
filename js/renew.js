@@ -259,11 +259,13 @@
             {
                 document.getElementById('totalPrice').textContent = rate.symbol +' '+monthlyConverted;
                 document.getElementById('pricePeriod').textContent = 'por este mes';
+                document.getElementById('priceCopy').onclick = () => copyPaymentData(monthlyNum, document.getElementById('priceCopy'));
                 document.getElementById('planName').textContent = 'Mensual';
             } else if (state.membership === 'annual') 
             {
                 document.getElementById('totalPrice').textContent = rate.symbol +' '+annualConverted;
-                document.getElementById('pricePeriod').textContent = 'por este año';
+                document.getElementById('pricePeriod').innerHTML = `por este año`;
+                document.getElementById('priceCopy').onclick = () => copyPaymentData(annualNum, document.getElementById('priceCopy'));
                 document.getElementById('planName').textContent = 'Anual';
             }
         }
@@ -322,6 +324,8 @@
             goToStep3();
         }
 
+
+
         function displayPaymentInfo(container, method) 
         {
             const data = paymentData[method].data.slice();
@@ -352,7 +356,7 @@
                     </a>`;
                 } else {
                     rowContent += `<span class="bank-info-value" id="${method}-data-${index}">${item.value}</span>
-                        <button class="copy-button" onclick="copyPaymentData('${method}', ${index})">Copiar</button>`;
+                        <button class="copy-button" onclick="copyPaymentData('${item.value}', this)">Copiar</button>`;
                 }
                 
                 row.innerHTML = rowContent;
@@ -369,6 +373,8 @@
                 container.querySelector('h4').textContent = 'Datos de PayPal';
             }
         }
+
+
 
         // ===== FILE UPLOAD =====
         document.getElementById('file-upload').addEventListener('change', function(e) 
@@ -413,6 +419,40 @@
                 const originalText = button.textContent;
                 button.textContent = '✓ Copiado';
                 
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.log('[v0] Copy error:', err);
+            });
+        }
+
+        function copyPaymentData(text, self) 
+        {
+            navigator.clipboard.writeText(text).then(() => 
+            {
+                const button = self || event.target;
+                const originalText = button.textContent;
+                button.textContent = '✓ Copiado';
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.log('Copy error:', err);
+            });
+        }
+
+        // ===== EXECUTE PAYMENT =====
+        async function executePayment() 
+        {
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => 
+            {
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = '✓ Copiado';
+
                 setTimeout(() => {
                     button.textContent = originalText;
                 }, 2000);

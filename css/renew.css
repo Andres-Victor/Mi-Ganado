@@ -326,6 +326,13 @@
             font-size: 0.95rem;
             border-bottom: 1px solid var(--light-gray);
         }
+        .card li a
+        {
+            padding: 8px 0;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
 
         .card li:last-child {
             border-bottom: none;
@@ -608,7 +615,8 @@
             word-break: break-all;
         }
 
-        .bank-info {
+        .bank-info 
+        {
             background: var(--white);
             border-left: 4px solid var(--primary-blue);
             border-radius: 8px;
@@ -763,6 +771,19 @@
                 font-size: 1.8rem;
             }
 
+            .bank-info .bank-info-row
+            {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                text-align: left;
+
+            }
+            .bank-info .bank-info-row .copy-button
+            {
+                padding: 8px 0px;
+            }
+
             .payment-form-container 
             {
                 padding: 20px;
@@ -904,7 +925,8 @@
             box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 640px) 
+        {
             .popup-content {
                 padding: 40px 25px;
             }
