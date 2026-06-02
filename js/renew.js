@@ -20,7 +20,7 @@
             'US': { symbol: 'US$', rate: 1, label: 'USD', locale: 'en-US'},
             'CO': { symbol: 'COP$', rate: 3800, label: 'COP', locale: 'es-CO', 'rounded': true},
             'MX': { symbol: 'MXN$', rate: 17, label: 'MXN', locale: 'es-MX', 'rounded': true},
-            'VE': { symbol: 'VES$', rate: 638, label: 'VES', locale: 'es-VE', 'rounded': true}
+            'VE': { symbol: 'VES$', rate: 738, label: 'VES', locale: 'es-VE', 'rounded': true}
         };
 
         // ===== PAYMENT DATA =====
