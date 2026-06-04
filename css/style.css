@@ -114,8 +114,7 @@ strong
 
 .button:hover
 {
-    scale: 1.1;
-    box-shadow: 0px 0px 0.4vh 0.4vh white;
+    background-color: #e6e6e6;
 }
 
 .button:active
@@ -337,23 +336,27 @@ strong
     margin-top: 3vh;
 }
 
-.download-box {
+.download-box 
+{
     background-color: white;
     color: var(--main-text-color);
     border-radius: 1vh;
     padding: 3vh;
     flex: 1 1 45%;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    text-align: left;
+    text-align: start;
     display: flex;
     flex-direction: column;
+    align-items: start;
     justify-content: space-between;
 }
 
 .download-box h3 {
-    font-size: 3vh;
+    font-size: 3.5vh;
     color: var(--main-color);
     margin-bottom: 1vh;
+    font-family: 'seoge-ui', sans-serif;
+    font-weight: bold;
 }
 
 .download-box p {
@@ -389,19 +392,69 @@ strong
 .download-box .button 
 {
     display: inline-block;
-    background-color: var(--main-color);
-    color: white;
+    color: var(--main-color);
     padding: 1vh 2vh;
     border-radius: 1vh;
     font-size: 2vh;
     text-align: center;
     text-decoration: none;
-    transition: transform 0.2s;
+    background-color: transparent;
+    transition: all 0.2s;
     align-self: flex-end;
+    border: 2px solid var(--main-color);
 }
 
-.download-box .button:hover {
-    transform: scale(1.05);
+.download-box .button:hover 
+{
+    background-color: #0056b3;
+    color: white;
+
+}
+
+.store-download-button 
+{
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--main-color);
+  border-radius: 1vh;
+  background-color: var(--main-color);
+  padding: 0.625rem 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  outline: 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  align-self: flex-end;
+}
+
+.store-download-button:hover {
+  background-color: transparent;
+  color: var(--main-color);
+}
+
+.store-download-button .icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.store-download-button .texts {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+}
+
+.store-download-button .text-1 {
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.store-download-button .text-2 {
+  font-weight: 600;
 }
 
 #legal
