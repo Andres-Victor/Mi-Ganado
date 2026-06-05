@@ -18,7 +18,7 @@
         const currencyRates = 
         {
             'US': { symbol: 'US$', rate: 1, label: 'USD', locale: 'en-US'},
-            'CO': { symbol: 'COP$', rate: 3800, label: 'COP', locale: 'es-CO', 'rounded': true},
+            'CO': { symbol: 'COP$', rate: 3600, label: 'COP', locale: 'es-CO', 'rounded': true},
             'MX': { symbol: 'MXN$', rate: 17, label: 'MXN', locale: 'es-MX', 'rounded': true},
             'VE': { symbol: 'VES$', rate: 738, label: 'VES', locale: 'es-VE', 'rounded': true}
         };
@@ -110,9 +110,10 @@
                             // Use cached location
                             if (currencyRates[countryCode]) {
                                 state.currency = countryCode;
-                                const value = await getBinanceUSDTFor(currencyRates[countryCode].label);
+                                const value = await getRegionalPrice(currencyRates[countryCode].label);
                                 if (value) currencyRates[countryCode].rate = value;
-                            } else {
+                            } else 
+                                {
                                 state.currency = 'US';
                             }
                             updateCurrency();
@@ -141,7 +142,7 @@
                 // Set currency based on country
                 if (currencyRates[countryCode]) {
                     state.currency = countryCode;
-                    const value = await getBinanceUSDTFor(currencyRates[countryCode].label);
+                    const value = await getRegionalPrice(currencyRates[countryCode].label);
                     if (value) currencyRates[countryCode].rate = value;
                 } else {
                     state.currency = 'US'; // Default to USD
@@ -167,9 +168,12 @@
             }
         }
 
-       async function getBinanceUSDTFor(fiatCurrency) 
+       async function getRegionalPrice(fiatCurrency) 
        {
             if (fiatCurrency === 'USD') return 1;
+
+            if(fiatCurrency !== 'VES') return null; // Solo tenemos precio regional para VES, para los demás países usamos la tasa fija
+
             // Cache key and TTL (1 hour)
             const cacheKey = `budt_${fiatCurrency}`;
             const TTL = 1000 * 60 * 60;
