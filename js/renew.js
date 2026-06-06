@@ -199,19 +199,29 @@
                 const response = await fetch(url); // Por defecto es GET
                 if (!response.ok) throw new Error("Error en red");
                 const data = await response.json();
-                if (data.success && data.data && data.data.length > 0) {
+
+                if (data.success && data.data && data.data.length > 0) 
+                {
                     const precioRaw = data.data[0].adv.price;
                     const precio = parseFloat(precioRaw);
-                    // Save to cache
-                    try {
+                    try 
+                    {
                         localStorage.setItem(cacheKey, JSON.stringify({ precio, ts: Date.now() }));
-                    } catch (e) {
-                        // ignore storage errors
-                    }
+                    } catch (e) {}
                     console.log(`Precio para ${fiatCurrency}: ${precio}`);
                     return precio;
-                } else {
-                    console.error("Binance no devolvió datos válidos");
+                } 
+                else if (data.success && data.source === 'fallback_firebase')
+                {
+                    const precio = parseFloat(data.price);
+                    try 
+                    {
+                        localStorage.setItem(cacheKey, JSON.stringify({ precio, ts: Date.now() }));
+                    } catch (e) {}
+                    return data.price;
+                }
+                else 
+                {
                     return null;
                 }
             } catch (error) {
