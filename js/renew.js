@@ -26,6 +26,17 @@
         // ===== PAYMENT DATA =====
         const paymentData = 
         {
+            binance: 
+            {
+                icon: '₿',
+                id: 'binance',
+                name: 'Binance',
+                data: [
+                    { label: 'UID', value: '804746784' },
+                    { label: 'Correo', value: 'vianvarela@gmail.com' },
+                    { label: 'Moneda', value: 'Tether USD (USDT)' }
+                ]
+            },
             paypal: 
             {
                 icon: '🅿️',
@@ -44,17 +55,6 @@
                     { label: 'Banco', value: 'Banco Mercantil' },
                     { label: 'Cédula', value: '31.754.601' },
                     { label: 'Teléfono', value: '04144746323' }
-                ]
-            },
-            binance: 
-            {
-                icon: '₿',
-                id: 'binance',
-                name: 'Binance',
-                data: [
-                    { label: 'UID', value: '804746784' },
-                    { label: 'Correo', value: 'vianvarela@gmail.com' },
-                    { label: 'Moneda', value: 'Tether USD (USDT)' }
                 ]
             },
         };
@@ -265,7 +265,7 @@
             document.getElementById('annualBadge').textContent = `-${Math.round((1 - anualMonthlyEquivalent / monthlyNum) * 100)}%`;
             document.getElementById('annualPriceBefore').textContent = `${rate.symbol} ${convertNumberToCurrency(monthlyNum)}`;
             document.getElementById('annualSaved').textContent = `Ahorre ${rate.symbol} ${convertNumberToCurrency(saved)}`;
-
+            document.getElementById('finalPaymentAdvice').textContent = `Se le factura ${rate.symbol} ${annualConverted} para activar sus 12 meses de membresía pro.`;
 
             
             if (state.membership === 'monthly') 

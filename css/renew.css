@@ -217,7 +217,7 @@
             background: var(--white);
             border: 2px solid var(--medium-gray);
             border-radius: 12px;
-            padding: 60px 20px 20px 20px;
+            padding: 60px 40px 20px 40px;
             text-align: start;
             transition: all 0.3s ease;
             position: relative;
@@ -237,7 +237,6 @@
 
 
         .card.better {
-            padding: 60px 20px 20px 20px;
             border-color: var(--primary-blue);
             box-shadow: 0 8px 24px rgba(0, 102, 204, 0.2);
         }
@@ -317,11 +316,12 @@
         .card ul {
             list-style: none;
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            margin-top: 25px;
         }
 
         .card li {
-            padding: 8px 0;
+            padding: 4px 0;
             color: var(--text-gray);
             font-size: 0.95rem;
             border-bottom: 1px solid var(--light-gray);
@@ -336,6 +336,13 @@
 
         .card li:last-child {
             border-bottom: none;
+        }
+
+        .card #finalPaymentAdvice
+        {
+            color: #666666;
+            text-align: center;
+            font-size: 0.85rem;
         }
 
         .card li::before {
