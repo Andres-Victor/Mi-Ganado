@@ -26,15 +26,14 @@
         // ===== PAYMENT DATA =====
         const paymentData = 
         {
-            binance: 
-            {
-                icon: '₿',
-                id: 'binance',
-                name: 'Binance',
+            pagomovil: {
+                icon: '📱',
+                id: 'pagomovil',
+                name: 'PagoMovil',
                 data: [
-                    { label: 'UID', value: '804746784' },
-                    { label: 'Correo', value: 'vianvarela@gmail.com' },
-                    { label: 'Moneda', value: 'Tether USD (USDT)' }
+                    { label: 'Banco', value: 'Banco Mercantil' },
+                    { label: 'Cédula', value: '31.754.601' },
+                    { label: 'Teléfono', value: '04144746323' }
                 ]
             },
             paypal: 
@@ -47,14 +46,15 @@
                     { label: 'Enlace', value: 'paypal.me/miganado', onTapLink: (amount) => `https://paypal.me/miganado/${amount}` },
                 ]
             },
-            pagomovil: {
-                icon: '📱',
-                id: 'pagomovil',
-                name: 'PagoMovil',
+            binance: 
+            {
+                icon: '₿',
+                id: 'binance',
+                name: 'Binance',
                 data: [
-                    { label: 'Banco', value: 'Banco Mercantil' },
-                    { label: 'Cédula', value: '31.754.601' },
-                    { label: 'Teléfono', value: '04144746323' }
+                    { label: 'UID', value: '804746784' },
+                    { label: 'Correo', value: 'vianvarela@gmail.com' },
+                    { label: 'Moneda', value: 'Tether USD (USDT)' }
                 ]
             },
         };
