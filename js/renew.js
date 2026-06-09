@@ -248,7 +248,6 @@
                 monthlyNum = Math.round(monthlyNum / 10) * 10;
                 annualNum = Math.round(annualNum / 10) * 10;
                 anualMonthlyEquivalent = annualNum / 12;
-                anualMonthlyEquivalent = Math.round(anualMonthlyEquivalent / 10) * 10;
                 saved = monthlyNum * 12 - (anualMonthlyEquivalent * 12);
             }
 
