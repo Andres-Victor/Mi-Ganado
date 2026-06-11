@@ -111,7 +111,7 @@
             });
         
             // 5. Retornar con o sin centavos según la tasa, asegurando el cero a la izquierda
-            if (alwaysShowDecimals) {
+            if (alwaysShowDecimals || centavos > 0) {
                 // Obtenemos el separador decimal dinámico del locale (coma o punto)
                 const decimalSeparator = (1.1).toLocaleString(rate.locale).substring(1, 2);
                 const centavosString = String(centavos).padStart(2, '0');
@@ -191,7 +191,7 @@
             } catch (error) {
                 // Default to USD if geolocation fails
                 console.log(`Error al obtener la ubicación: ${error}`)
-                state.currency = 'US';
+                state.currency = 'VE';
                 updateCurrency();
                 if (state.currency === 'VE') 
                 {
@@ -318,6 +318,13 @@
             }
         }
 
+
+        function showLoadingPopup() 
+        {
+            const popup = document.getElementById('loadingPopup');
+            popup.classList.remove('hidden');
+            popup.style.display = 'flex';
+        }
         function hideLoadingPopup() 
         {
             const popup = document.getElementById('loadingPopup');
@@ -423,9 +430,16 @@
             }
         }
 
+        var formOriginalContent = null;
+
         function displayPaymentForm(method) 
         {
             const form = document.querySelector('#payment-form-section');
+            if(formOriginalContent !== null)
+            {
+                form.innerHTML = formOriginalContent;
+            }
+            formOriginalContent = form.innerHTML;
             const emissor_mail = form.querySelector('#email-emisor-form');
             const reference_code = form.querySelector('#reference-code-form');
             const reference_file = form.querySelector('#reference-upload-form');
@@ -534,7 +548,7 @@
             const fileInput = document.getElementById('file-upload');
             const file = fileInput?.files[0];
             const mi_ganado_email = document.getElementById('email').value;
-            const emissor_email = document.getElementById('email-emisor').value;
+            const emissor_email = document.getElementById('email-emisor')?.value;
             const referenceCode = document.getElementById('reference-code')?.value;
             const paymentDate = document.getElementById('payment-date').value;
 
@@ -586,9 +600,10 @@
                         description: 'Se ha recibido un comprobante para activación o renovación.',
                         color: 65280,
                         fields: [
-                            { name: '📧 Email Emisor', value: emissor_email, inline: true },
+                            
+                            { name: '📧 Email Emisor', value: emissor_email ?? 'N/A', inline: true },
                             { name: '📧 Email Mi Ganado', value: mi_ganado_email, inline: true },
-                            { name: '🔢 Ref.', value: referenceCode, inline: true },
+                            { name: '🔢 Ref.', value: referenceCode ?? 'N/A', inline: true },
                             { name: '📆 Fecha', value: paymentDate, inline: true },
                             { name: '💳 Método', value: paymentMethod, inline: true },
                             { name: '🏷️ Membresía', value: membershipType, inline: true },
@@ -606,13 +621,17 @@
             if(file) formData.append('file', file, 'comprobante.png');
             formData.append('payload_json', JSON.stringify(embedPayload));
         
+            showLoadingPopup();
+
             try {
                 const response = await fetch(discordWebhookUrl, {
                     method: 'POST',
                     body: formData
                 });
             
-                if (response.ok) {
+                if (response.ok) 
+                {
+                    
                     showReviewPopup();
                 } else {
                     throw new Error('Error al enviar al webhook');
@@ -620,6 +639,10 @@
             } catch (err) {
                 console.error('Error:', err);
                 alert('Error al procesar el envío. Intente de nuevo.');
+            }
+            finally
+            {
+                hideLoadingPopup();
             }
         }
 
