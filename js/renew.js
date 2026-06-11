@@ -158,7 +158,7 @@
                 }
 
                 // If no valid cache, fetch location
-                const response = await fetch('https://freeipapi.com/api/json');
+                const response = await fetch('https://miganado-geo.vianvarela.workers.dev/');
                 const data = await response.json();
                 const countryCode = data.countryCode;
 
