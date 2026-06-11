@@ -73,24 +73,53 @@
             detectUserCountry();
         });
 
-        function convertNumberToCurrency(number)
+        function formatMoney(value) 
         {
+          // Convert to cents and truncate extra fractions
+          const totalCents = Math.floor(value * 100);
+          const dollars = Math.floor(totalCents / 100);
+          const cents = totalCents % 100;
+          // Ensure two‑digit cent display
+          return `$${dollars}.${cents.toString().padStart(2, '0')}`;
+        }
+
+        function convertNumberToCurrency(number) 
+        {
+            // 1. Guardarraíl al principio
+            if (typeof number !== 'number' && typeof number !== 'string') {
+                return number;
+            }
+        
+            const parsedInput = Number(number);
+            if (Number.isNaN(parsedInput)) {
+                return number;
+            }
+        
+            // 2. Obtener tasas y configuraciones
             const rate = currencyRates[state.currency] ?? currencyRates['US'];
-
             const alwaysShowDecimals = rate.rounded !== true;
+        
+            // 3. Extracción exacta de unidades y centavos truncados
+            const totalCents = Math.floor(parsedInput * 100);
+            const unidades = Math.floor(totalCents / 100);
+            const centavos = totalCents % 100;
+        
+            // 4. Formatear las unidades con el locale (sin decimales de JS)
+            const unidadesFormateadas = unidades.toLocaleString(rate.locale, { 
+                minimumFractionDigits: 0, 
+                maximumFractionDigits: 0 
+            });
+        
+            // 5. Retornar con o sin centavos según la tasa, asegurando el cero a la izquierda
+            if (alwaysShowDecimals) {
+                // Obtenemos el separador decimal dinámico del locale (coma o punto)
+                const decimalSeparator = (1.1).toLocaleString(rate.locale).substring(1, 2);
+                const centavosString = String(centavos).padStart(2, '0');
 
-            if (typeof number !== 'number' && typeof number !== 'string') 
-            {
-                return number;
+                return `${unidadesFormateadas}${decimalSeparator}${centavosString}`;
             }
-
-            const parsedNumber = Number(number);
-            if (Number.isNaN(parsedNumber)) {
-                return number;
-            }
-
-            // Ensure two decimal places are always shown (e.g., 7 -> 7,00)
-            return parsedNumber.toLocaleString(rate.locale, { minimumFractionDigits: alwaysShowDecimals ? 2 : 0, maximumFractionDigits: 2 });
+        
+            return unidadesFormateadas;
         }
 
         // ===== GEOLOCATION =====
@@ -112,8 +141,9 @@
                                 state.currency = countryCode;
                                 const value = await getRegionalPrice(currencyRates[countryCode].label);
                                 if (value) currencyRates[countryCode].rate = value;
-                            } else 
-                                {
+                            }
+                            else 
+                            {
                                 state.currency = 'US';
                             }
                             updateCurrency();
@@ -128,9 +158,9 @@
                 }
 
                 // If no valid cache, fetch location
-                const response = await fetch('https://ipapi.co/json/');
+                const response = await fetch('https://freeipapi.com/api/json');
                 const data = await response.json();
-                const countryCode = data.country_code;
+                const countryCode = data.countryCode;
 
                 // Save to cache
                 try {
@@ -160,8 +190,13 @@
                 hideLoadingPopup();
             } catch (error) {
                 // Default to USD if geolocation fails
-                state.currency = 'VE';
+                console.log(`Error al obtener la ubicación: ${error}`)
+                state.currency = 'US';
                 updateCurrency();
+                if (state.currency === 'VE') 
+                {
+                    document.getElementById('pagomovil-option').style.display = 'block';
+                }
                 hideLoadingPopup();
             } finally {
                 console.log('Geolocalización finalizada. País detectado:', state.currency);
@@ -265,7 +300,7 @@
             document.getElementById('annualBadge').textContent = `-${Math.round((1 - anualMonthlyEquivalent / monthlyNum) * 100)}%`;
             document.getElementById('annualPriceBefore').textContent = `${rate.symbol} ${convertNumberToCurrency(monthlyNum)}`;
             document.getElementById('annualSaved').textContent = `Ahorre ${rate.symbol} ${convertNumberToCurrency(saved)}`;
-            document.getElementById('finalPaymentAdvice').textContent = `Se le factura ${rate.symbol} ${annualConverted} para activar sus 12 meses de membresía pro.`;
+            document.getElementById('finalPaymentAdvice').textContent = `Facturado anualmente como un unico pago de ${rate.symbol} ${annualConverted}.`;
 
             
             if (state.membership === 'monthly') 
@@ -333,6 +368,7 @@
             bankInfo.style.display = 'none';
 
             displayPaymentInfo(bankInfo, method);   
+            displayPaymentForm(method);
             
             goToStep3();
         }
@@ -384,6 +420,24 @@
                 container.querySelector('h4').textContent = 'Datos de Binance';
             } else if (method === 'paypal') {
                 container.querySelector('h4').textContent = 'Datos de PayPal';
+            }
+        }
+
+        function displayPaymentForm(method) 
+        {
+            const form = document.querySelector('#payment-form-section');
+            const emissor_mail = form.querySelector('#email-emisor-form');
+            const reference_code = form.querySelector('#reference-code-form');
+            const reference_file = form.querySelector('#reference-upload-form');
+
+            if(method !== 'pagomovil')
+            {
+                reference_code.innerHTML = '';
+                reference_file.innerHTML = '';
+            }
+            else
+            {
+                emissor_mail.innerHTML = '';
             }
         }
 
@@ -470,7 +524,7 @@
                     button.textContent = originalText;
                 }, 2000);
             }).catch(err => {
-                console.log('[v0] Copy error:', err);
+                console.log('Copy error:', err);
             });
         }
 
@@ -478,15 +532,32 @@
         async function executePayment() 
         {
             const fileInput = document.getElementById('file-upload');
-            const file = fileInput.files[0];
-            const email = document.getElementById('email').value;
-             const referenceCode = document.getElementById('reference-code').value;
+            const file = fileInput?.files[0];
+            const mi_ganado_email = document.getElementById('email').value;
+            const emissor_email = document.getElementById('email-emisor').value;
+            const referenceCode = document.getElementById('reference-code')?.value;
             const paymentDate = document.getElementById('payment-date').value;
-        
-            if (!email || !paymentDate || !file) {
-                alert('Por indique su correo, fecha de pago y imagen de comprobante');
+
+            if (!mi_ganado_email || !paymentDate) {
+                alert('Por indique su correo de mi ganado y la fecha de pago');
                 return;
             }
+
+            if(state.paymentMethod === 'pagomovil')
+            {
+                if(!file && !referenceCode)
+                {
+                    alert('Por favor incluya el numero de transacción o un comprobante de pago');
+                }
+            }
+            else
+            {
+                if(!emissor_email)
+                {
+                    alert('Por favor indique el correo electrónico de la cuenta con la que realizó el pago');
+                }
+            }
+
             const webhook_part_one = 'https://disc';
             const webhook_part_two = 'ord.com/api/webhooks/1508654073472221367/';
             const webhook_part_tree = 'eHtJdnFrltE5SZQahbvD4cnKgjfiIGFtfbkpu4Ek2m_oYyDGecFkJ-ETK_InjRtge1aI';
@@ -515,7 +586,8 @@
                         description: 'Se ha recibido un comprobante para activación o renovación.',
                         color: 65280,
                         fields: [
-                            { name: '📧 Email', value: email, inline: true },
+                            { name: '📧 Email Emisor', value: emissor_email, inline: true },
+                            { name: '📧 Email Mi Ganado', value: mi_ganado_email, inline: true },
                             { name: '🔢 Ref.', value: referenceCode, inline: true },
                             { name: '📆 Fecha', value: paymentDate, inline: true },
                             { name: '💳 Método', value: paymentMethod, inline: true },
@@ -531,7 +603,7 @@
             };
         
             const formData = new FormData();
-            formData.append('file', file, 'comprobante.png');
+            if(file) formData.append('file', file, 'comprobante.png');
             formData.append('payload_json', JSON.stringify(embedPayload));
         
             try {

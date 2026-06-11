@@ -345,6 +345,12 @@
             font-size: 0.85rem;
         }
 
+        #payment-form-section p
+        {
+            font-size: 0.75rem;
+            color: #8d8d8d;
+        }
+
         .card li::before {
             content: "✓ ";
             color: var(--primary-blue);
@@ -467,11 +473,11 @@
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        .form-group label 
+        {
             display: block;
             color: var(--dark-gray);
             font-weight: 500;
-            margin-bottom: 8px;
             font-size: 0.95rem;
         }
 
