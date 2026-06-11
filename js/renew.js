@@ -170,7 +170,8 @@
                 }
 
                 // Set currency based on country
-                if (currencyRates[countryCode]) {
+                if (currencyRates[countryCode]) 
+                {
                     state.currency = countryCode;
                     const value = await getRegionalPrice(currencyRates[countryCode].label);
                     if (value) currencyRates[countryCode].rate = value;
@@ -188,7 +189,9 @@
 
                 // Hide loading popup
                 hideLoadingPopup();
-            } catch (error) {
+            } catch (error) 
+            {
+                
                 // Default to USD if geolocation fails
                 console.log(`Error al obtener la ubicación: ${error}`)
                 state.currency = 'VE';
@@ -196,6 +199,8 @@
                 if (state.currency === 'VE') 
                 {
                     document.getElementById('pagomovil-option').style.display = 'block';
+                    const value = await getRegionalPrice('VES');
+                    if (value) currencyRates[countryCode].rate = value;
                 }
                 hideLoadingPopup();
             } finally {
