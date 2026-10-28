@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Ganado PRO — Activar / Renovar Membresía</title>
+    <meta name="description" content="Activa o renueva tu membresía Mi Ganado PRO, lleva al siguiente nivel lagestión inteligente de rebaños, control lechero y analítica en tiempo real para tu finca.">
+    <meta property="og:image" content="https://miganado.net/res/img/miGanadoIcon.png">
+    <link rel="stylesheet" href="./css/renew.css">
+</head>
+<body>
+
+    <!-- ===== SPRITE DE ICONOS SVG ===== -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+        <symbol id="i-verified" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8.4 12.3 2.4 2.4 4.8-4.9"/></symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 21.5s7.8-3.5 7.8-9.8V5.4L12 2.5 4.2 5.4v6.3c0 6.3 7.8 9.8 7.8 9.8Z"/><path d="m9 11.8 2.2 2.2 4-4"/></symbol>
+        <symbol id="i-sync" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></symbol>
+        <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 18.5H7a4.5 4.5 0 0 1-.9-8.9 6.5 6.5 0 0 1 12.7 1.6 3.7 3.7 0 0 1-1.3 7.3Z"/><path d="M12 15.5V9.5m0 0-2.2 2.2M12 9.5l2.2 2.2"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10.5" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+        <symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4.5" height="6.5" rx="2"/><rect x="16.5" y="13" width="4.5" height="6.5" rx="2"/></symbol>
+        <symbol id="i-badge" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="m8.8 13.5-1.6 7 4.8-2.8 4.8 2.8-1.6-7"/></symbol>
+        <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4.5 13.5h6L9.5 22l10-11.5h-6L13 2Z"/></symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17"/><path d="M12 3a13.5 13.5 0 0 1 0 18M12 3a13.5 13.5 0 0 0 0 18"/></symbol>
+        <symbol id="i-percent" viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="7.5" cy="7.5" r="2.6"/><circle cx="16.5" cy="16.5" r="2.6"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+        <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15.5V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M4.5 20h15"/></symbol>
+        <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+        <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+        <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 16.5Z"/><path d="M4 9.5h16"/><path d="M15.5 13.5H18"/></symbol>
+        <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18"/><path d="M7 14.5h4"/></symbol>
+        <symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8.5" cy="8.5" r="5.8"/><path d="M18.7 11.3a5.8 5.8 0 1 1-7.4 7.4"/><path d="M8.5 6.2v4.6M6.2 8.5h4.6"/></symbol>
+        <symbol id="i-cash" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="11" rx="2"/><circle cx="12" cy="12.5" r="2.6"/><path d="M6.4 12.5h.01M17.6 12.5h.01"/></symbol>
+    </svg>
+
+    <!-- ===== POPUP DE CARGA ===== -->
+    <div class="loading-popup" id="loadingPopup">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p class="loading-text">Procesando tu solicitud</p>
+            <p class="loading-subtext">Por favor espera un momento</p>
+        </div>
+    </div>
+
+    <!-- ===== HERO (visible solo en el paso 1) ===== -->
+    <header class="hero">
+        <div class="hero-badge">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-verified"/></svg>
+            Plataforma Ganadera Especializada
+        </div>
+        <h1>¿Listo para el siguiente nivel? <br><span class="brand">Mi Ganado&nbsp;PRO</span></h1>
+        <p>Es hora de desbloquear el máximo potencial y optimizar el rendimiento de tu finca con <span class="brand">Mi Ganado&nbsp;PRO</span>.</p>
+    </header>
+
+    <main class="container">
+
+        <!-- ===== INDICADOR DE PASOS ===== -->
+        <nav class="steps" aria-label="Progreso de la compra">
+            <div class="step clickable" id="step1-indicator" data-action="goto-step" data-step="1" role="button" tabindex="0">
+                <div class="step-number">1</div>
+                <div class="step-texts">
+                    <span class="step-kicker">PASO 1</span>
+                    <span class="step-label">Elige tu Plan</span>
+                </div>
+            </div>
+            <div class="step-connector" id="connector-1"></div>
+            <div class="step clickable" id="step2-indicator" data-action="goto-step" data-step="2" role="button" tabindex="0">
+                <div class="step-number">2</div>
+                <div class="step-texts">
+                    <span class="step-kicker">PASO 2</span>
+                    <span class="step-label">Tipo de Pago</span>
+                </div>
+            </div>
+            <div class="step-connector" id="connector-2"></div>
+            <div class="step clickable" id="step3-indicator" data-action="goto-step" data-step="3" role="button" tabindex="0">
+                <div class="step-number">3</div>
+                <div class="step-texts">
+                    <span class="step-kicker">PASO 3</span>
+                    <span class="step-label">Servicio</span>
+                </div>
+            </div>
+            <div class="step-connector" id="connector-3"></div>
+            <div class="step clickable" id="step4-indicator" data-action="goto-step" data-step="4" role="button" tabindex="0">
+                <div class="step-number">4</div>
+                <div class="step-texts">
+                    <span class="step-kicker">PASO 4</span>
+                    <span class="step-label">Tu Pago</span>
+                </div>
+            </div>
+            <div class="step-connector" id="connector-4"></div>
+            <div class="step" id="step5-indicator">
+                <div class="step-number">5</div>
+                <div class="step-texts">
+                    <span class="step-kicker">PASO 5</span>
+                    <span class="step-label">Confirmar</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ===== PANTALLA 1: ELIGE TU PLAN ===== -->
+        <section class="screen active" id="screen1">
+            <div class="screen-header">
+                <h2>Elige tu Plan</h2>
+                <p>Precios en (<strong id="currencyTag">USD</strong>)o</p>
+            </div>
+
+            <div class="membership-cards">
+
+                <!-- PLAN MENSUAL -->
+                <div class="card" id="card-monthly">
+                    <span class="plan-kicker">Plan Mensual</span>
+
+                    <div class="price-and-stuff">
+                        <div class="priceHolder">
+                            <div class="price" id="monthlyPrice">⌛</div>
+                            <div class="divider">/mes</div>
+                        </div>
+                        <p class="plan-tagline">Flexibilidad total, mes a mes.</p>
+                    </div>
+
+                    <ul>
+                        <li>Acceso a la versión de escritorio</li>
+                        <li>Reportes financieros avanzados</li>
+                        <li>Sincronización multiusuario</li>
+                        <li>Respaldo en la nube</li>
+                        <li>Soporte técnico</li>
+                        <li class="benefits-link"><a href="./beneficiosPro.html" target="_blank" rel="noopener">Ver Todos los Beneficios <svg class="icon icon-xs" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+                    </ul>
+
+                    <button type="button" class="plan-choose" data-action="plan-choose" data-plan="monthly">
+                        Elegir Plan Mensual
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+                    </button>
+                </div>
+
+                <!-- PLAN ANUAL -->
+                <div class="card better" id="card-annual">
+                    <div class="better-badge">Mejor Oferta</div>
+
+                    <div class="plan-kicker-row">
+                        <span class="plan-kicker">Plan Anual</span>
+                        <span class="card-badge" id="annualBadge"></span>
+                    </div>
+
+                    <div class="price-and-stuff">
+                        <div class="priceBefore" id="annualPriceBefore"></div>
+                        <div class="priceHolder">
+                            <div class="price" id="annualPrice">⌛</div>
+                            <div class="divider">/mes</div>
+                        </div>
+                        <div class="saved" id="annualSaved"></div>
+                    </div>
+
+                    <ul>
+                        <li>Acceso a la versión de escritorio</li>
+                        <li>Reportes financieros avanzados</li>
+                        <li>Sincronización multiusuario</li>
+                        <li>Respaldo en la nube</li>
+                        <li>Soporte técnico</li>
+                        <li>Ahorro equivalente a 4 meses</li>
+                        <li class="benefits-link"><a href="./beneficiosPro.html" target="_blank" rel="noopener">Ver Todos los Beneficios <svg class="icon icon-xs" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+                    </ul>
+                    <p id="finalPaymentAdvice"></p>
+
+                    <button type="button" class="plan-choose" data-action="plan-choose" data-plan="annual">
+                        Elegir Plan Anual
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PANTALLA 2: TIPO DE PAGO ===== -->
+        <section class="screen" id="screen2">
+            <a class="back-link" data-action="goto-step" data-step="1" role="button" tabindex="0">← Volver a los planes</a>
+
+            <div class="screen-header">
+                <h2>¿Cómo quieres pagar?</h2>
+                <p>Primero elige el tipo de pago; después seleccionarás el servicio</p>
+            </div>
+
+            <div class="category-grid">
+
+                <!-- MONEDA LOCAL (solo Venezuela) -->
+                <div class="category-card theme-cat-local" id="category-local" style="display: none;" data-action="category-select" data-category="local" role="button" tabindex="0" aria-label="Pagar en moneda local con Pago Móvil">
+                    <div class="category-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-cash"/></svg></div>
+                    <h3>Moneda Local <span class="flag-tag">Venezuela</span></h3>
+                    <p>Transferencia en bolívares (Pago Móvil) desde cualquier banco venezolano.</p>
+                    <div class="brand-chips">
+                        <span class="brand-chip"><svg class="chip-icon" aria-hidden="true"><use href="#i-phone"/></svg></span>
+                        <span class="brand-chip brand-chip-text">Pago Móvil</span>
+                    </div>
+                    <span class="category-cta">Continuar <svg class="icon icon-xs" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+                </div>
+
+                <!-- BILLETERA ELECTRÓNICA -->
+                <div class="category-card theme-cat-wallet" data-action="category-select" data-category="wallet" role="button" tabindex="0" aria-label="Pagar con billetera electrónica">
+                    <div class="category-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-wallet"/></svg></div>
+                    <h3>Billetera Electrónica</h3>
+                    <p>Usa el saldo de tu billetera digital: PayPal, Zinli o Wall-e.</p>
+                    <div class="brand-chips">
+                        <span class="brand-chip"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/PayPal_Logo_Icon_2014.svg" alt="PayPal" data-fallback="P|#003087"></span>
+                        <span class="brand-chip"><img src="./res/img/zinli.png" alt="Zinli" data-fallback="Z|#4F46E5"></span>
+                        <!-- <span class="brand-chip"><div class="logo-fallback" style="background:#64748B">W</div></span> -->
+                    </div>
+                    <span class="category-cta">Continuar <svg class="icon icon-xs" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+                </div>
+
+                <!-- TARJETA DE CRÉDITO O DÉBITO -->
+                <div class="category-card theme-cat-card" data-action="category-select" data-category="card" role="button" tabindex="0" aria-label="Pagar con tarjeta de crédito o débito">
+                    <div class="category-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-card"/></svg></div>
+                    <h3>Tarjeta de Crédito o Débito</h3>
+                    <p>Paga con tu tarjeta de débito o crédito mediante Recarga Zinli.</p>
+                    <div class="brand-chips">
+                        <span class="brand-chip"><img src="./res/img/zinli.png" alt="Zinli" data-fallback="Z|#4F46E5"></span>
+                        <span class="brand-chip brand-chip-text">Débito / Crédito</span>
+                    </div>
+                    <span class="category-cta">Continuar <svg class="icon icon-xs" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+                </div>
+
+                <!-- CRIPTOMONEDAS -->
+                <div class="category-card theme-cat-crypto" data-action="category-select" data-category="crypto" role="button" tabindex="0" aria-label="Pagar con criptomonedas">
+                    <div class="category-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-coins"/></svg></div>
+                    <h3>Criptomonedas</h3>
+                    <p>Transferencias en criptomonedas vía Binance Pay (USDT).</p>
+                    <div class="brand-chips">
+                        <span class="brand-chip">
+                            <svg class="chip-binance" viewBox="0 0 26 26" aria-hidden="true">
+                                <g fill="#F3BA2F">
+                                    <rect x="9" y="9" width="8" height="8" transform="rotate(45 13 13)"/>
+                                    <rect x="11.2" y="1.2" width="3.6" height="3.6" transform="rotate(45 13 3)"/>
+                                    <rect x="11.2" y="21.2" width="3.6" height="3.6" transform="rotate(45 13 23)"/>
+                                    <rect x="1.2" y="11.2" width="3.6" height="3.6" transform="rotate(45 3 13)"/>
+                                    <rect x="21.2" y="11.2" width="3.6" height="3.6" transform="rotate(45 23 13)"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span class="brand-chip brand-chip-text">USDT</span>
+                    </div>
+                    <span class="category-cta">Continuar <svg class="icon icon-xs" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+                </div>
+
+                
+            </div>
+        </section>
+
+        <!-- ===== PANTALLA 3: SERVICIO DE PAGO ===== -->
+        <section class="screen" id="screen3">
+            <a class="back-link" data-action="goto-step" data-step="2" role="button" tabindex="0">← Volver a tipos de pago</a>
+
+            <div class="screen-header">
+                <h2>Elige tu Servicio de Pago</h2>
+                <p>Pagando con <strong id="categoryName">—</strong></p>
+            </div>
+
+            <div class="payment-methods" id="servicesList">
+                <!-- Las tarjetas de servicio se generan desde renew.js -->
+            </div>
+        </section>
+
+        <!-- ===== PANTALLA 4: REALIZA TU PAGO ===== -->
+        <section class="screen" id="screen4">
+            <a class="back-link" data-action="goto-step" data-step="3" role="button" tabindex="0">← Volver a los servicios</a>
+
+            <div class="screen-header">
+                <h2 id="payStepTitle">Realiza tu Pago</h2>
+                <p>Sigue las instrucciones, paga el monto exacto y confirma al finalizar.</p>
+            </div>
+
+            <div class="payment-form-container">
+
+                <!-- IZQUIERDA: INSTRUCCIONES + DATOS DE PAGO -->
+                <div class="form-section" id="payment-form-section">
+
+                    <div class="pay-instructions">
+                        <h4 class="pi-title">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-zap"/></svg>
+                            Instrucciones de pago
+                        </h4>
+                        <ol id="instructionsList"></ol>
+                    </div>
+
+                    <div class="bank-info" id="bankInfo" style="display: none;">
+                        <div class="bank-info-header">
+                            <h4 id="bankTitle">Datos de pago</h4>
+                        </div>
+                        <!-- Filas o botón de acción generados por renew.js -->
+                    </div>
+                </div>
+
+                <!-- DERECHA: RESUMEN DEL PEDIDO -->
+                <aside class="summary-section">
+                    <h3>Resumen del Pedido</h3>
+
+                    <div class="price-display">
+                        <div class="price-label">Total a Pagar</div>
+                        <div class="price-amount js-total-price">⌛</div>
+                        <div class="price-period js-price-period">por mes</div>
+                        <button type="button" class="copy-button js-price-copy">Copiar monto</button>
+                    </div>
+
+                    <div class="payment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Plan:</span>
+                            <span class="detail-value js-plan-name">—</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Método:</span>
+                            <span class="detail-value js-method-name">No seleccionado</span>
+                        </div>
+                    </div>
+
+                    <p class="equivalent-line js-equivalent-line"></p>
+
+                    <button class="execute-btn" data-action="confirm-payment" id="btnPaymentDone">
+                        Ya realicé mi pago
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+                    </button>
+
+                    <div class="mini-trust">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#i-clock"/></svg> Activación en ~<span class="js-minutes">15</span> min</span>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- SOPORTE -->
+            <div class="support-card">
+                <div class="support-icon"><svg class="icon icon-fill" aria-hidden="true"><use href="#i-whatsapp"/></svg></div>
+                <div class="support-text">
+                    <h4>¿Problemas con tu pago?</h4>
+                    <p>Nuestro equipo te ayuda a completar tu activación en minutos.</p>
+                </div>
+                <button class="btn btn-whatsapp" data-action="contact-support">
+                    <svg class="icon icon-sm icon-fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                    <span class="wa-label">Escribir por WhatsApp</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== PANTALLA 5: VERIFICA TU PAGO ===== -->
+        <section class="screen" id="screen5">
+            <a class="back-link" data-action="goto-step" data-step="4" role="button" tabindex="0">← Volver al pago</a>
+
+            <div class="screen-header">
+                <h2>Verifica tu Pago</h2>
+                <p>Casi listo: registra tu comprobante y activa tu membresía PRO</p>
+            </div>
+
+            <div class="payment-form-container">
+
+                <!-- IZQUIERDA: FORMULARIO DE VERIFICACIÓN -->
+                <div class="form-section" id="verification-form-section">
+
+                    <h3 id="formTitle">Registra tu Comprobante de Pago</h3>
+                    <p class="form-intro" id="formIntro" style="display: none;"></p>
+
+                    <div class="form-group" id="email-emisor-form">
+                        <label for="email-emisor">Correo Electrónico Emisor *</label>
+                        <p>Correo desde el cual se emitió el pago</p>
+                        <input type="email" id="email-emisor" placeholder="tu@correo.com" autocomplete="off">
+                    </div>
+
+                    <div class="form-group" id="email-form">
+                        <label for="email">Tu Correo de Mi Ganado *</label>
+                        <p>Correo que recibirá la membresía PRO en Mi Ganado</p>
+                        <input type="email" id="email" placeholder="tu@correo.com" autocomplete="email">
+                    </div>
+
+                    <div class="form-group" id="reference-code-form">
+                        <label for="reference-code">Número / Referencia de Transacción</label>
+                        <p>Lo encuentras en el recibo o en el historial de tu banco o billetera</p>
+                        <input type="text" id="reference-code" placeholder="Ej: 1234567890" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment-date">Fecha y Hora de Pago *</label>
+                        <input type="datetime-local" id="payment-date" autocomplete="off">
+                    </div>
+
+                    <div class="form-group file-upload" id="reference-upload-form">
+                        <label for="file-upload" class="file-upload-label" id="file-upload-zone">
+                            <svg class="icon icon-lg" aria-hidden="true"><use href="#i-upload"/></svg>
+                            <span class="fu-title">Arrastra tu comprobante o haz clic para seleccionarlo</span>
+                            <span class="fu-sub">Captura de pantalla o foto del recibo (PNG, JPG)</span>
+                        </label>
+                        <input type="file" id="file-upload" accept="image/*">
+                        <div class="file-name" id="file-name"></div>
+                        <div class="image-preview" id="image-preview" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- DERECHA: RESUMEN DEL PEDIDO -->
+                <aside class="summary-section">
+                    <h3>Resumen del Pedido</h3>
+
+                    <div class="price-display">
+                        <div class="price-label">Total a Pagar</div>
+                        <div class="price-amount js-total-price">⌛</div>
+                        <div class="price-period js-price-period">por mes</div>
+                        <button type="button" class="copy-button js-price-copy">Copiar monto</button>
+                    </div>
+
+                    <div class="payment-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Plan:</span>
+                            <span class="detail-value js-plan-name">—</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Método:</span>
+                            <span class="detail-value js-method-name">No seleccionado</span>
+                        </div>
+                    </div>
+
+                    <p class="equivalent-line js-equivalent-line"></p>
+
+                    <button class="execute-btn" data-action="submit-payment" id="executeBtn">Enviar Comprobante de Pago</button>
+
+                    <div class="mini-trust">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#i-clock"/></svg> Activación en ~<span class="js-minutes">15</span> min</span>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- SOPORTE -->
+            <div class="support-card">
+                <div class="support-icon"><svg class="icon icon-fill" aria-hidden="true"><use href="#i-whatsapp"/></svg></div>
+                <div class="support-text">
+                    <h4>¿Problemas con tu pago?</h4>
+                    <p>Nuestro equipo te ayuda a completar tu activación en minutos.</p>
+                </div>
+                <button class="btn btn-whatsapp" data-action="contact-support">
+                    <svg class="icon icon-sm icon-fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                    <span class="wa-label">Escribir por WhatsApp</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== BANDA DE GARANTÍAS ===== -->
+    <section class="trust-band">
+        <div class="trust-band-inner">
+            <div class="band-item">
+                <div class="band-icon"><svg class="icon" aria-hidden="true"><use href="#i-sync"/></svg></div>
+                <div><h4>Sincronización en tiempo real</h4><p>Tus datos siempre actualizados</p></div>
+            </div>
+            <div class="band-item">
+                <div class="band-icon"><svg class="icon" aria-hidden="true"><use href="#i-headset"/></svg></div>
+                <div><h4>Soporte ganadero 24/7</h4><p>Asistencia técnica en línea</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <!-- TODO: actualizar con los enlaces reales del sitio -->
+            <a href="./terminos.html">Términos de Servicio</a><span class="sep">·</span>
+            <a href="./privacidad.html">Privacidad de Datos Ganaderos</a><span class="sep">·</span>
+            <a href="#" data-action="contact-support">Contacto Técnico</a>
+        </div>
+        <p>© <span id="footer-year">2026</span> Mi Ganado. Todos los derechos reservados. Eficiencia y control ganadero.</p>
+    </footer>
+
+    <!-- ===== POPUP: MEMBRESÍA EN REVISIÓN ===== -->
+    <div class="popup-overlay" id="reviewPopup">
+        <div class="popup-content">
+            <div class="popup-icon">✓</div>
+            <h2>¡Membresía en Revisión!</h2>
+            <p class="popup-message">Tu solicitud de activación/renovación ha sido recibida y está siendo procesada.</p>
+
+            <div class="popup-info">
+                <p>Recibirás una notificación de confirmación en la aplicación móvil.</p>
+                <p>Tiempo promedio de activación: <strong class="js-minutes">15</strong> minutos.</p>
+                <p>Mientras tanto, puedes cerrar esta página.</p>
+            </div>
+
+            <div class="popup-buttons">
+                <button class="btn btn-primary" data-action="close-page">Volver a la Página Principal</button>
+                <button class="btn btn-support" data-action="contact-support">Contactar Soporte</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>
