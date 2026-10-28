@@ -36,19 +36,15 @@ export class ZinliMethod extends PaymentMethod
         dataTitle: 'Datos del destinatario Zinli',
         dataRows:
         [
-          { label: 'Correo Zinli', value: 'vianvarela@gmail.com' },
           { label: 'Titular', value: 'Victor Andres Varela Gonzalez' },
+          { label: 'Correo Zinli', value: 'vianvarela@gmail.com' },
         ],
         action: null,
         formFields:
         [
+          'miGanadoEmail',
           'receipt',
         ],
-        verification:
-        {
-          title: 'Confirma tu Pago',
-          intro: 'Adjunta la captura del pago e indica la fecha y hora en que lo realizaste.',
-        },
         chargesInUsd: true,
       }
     );
